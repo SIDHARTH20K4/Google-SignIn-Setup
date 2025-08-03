@@ -1,61 +1,87 @@
 🔐 Google Login Integration – React + TypeScript
-This guide helps you integrate Google OAuth login into your React application using the @react-oauth/google package.
+This guide walks you through integrating Google OAuth login into your React application using @react-oauth/google and jwt-decode.
 
 📦 Prerequisites
-Node.js & npm installed
+Node.js and npm/yarn installed
 
-A working React project (TypeScript recommended)
+A React + TypeScript project set up (Vite is recommended)
 
 ✅ Steps to Integrate
-1️⃣ Get Google OAuth Credentials
-Go to Google Cloud Console.
+1️⃣ Install Required Packages
+@react-oauth/google: Enables Google OAuth integration
 
-Create or select a project.
+jwt-decode: Decodes the JWT token returned by Google
 
-Configure the OAuth consent screen.
+Use either npm or yarn to install them before starting the setup.
 
-Create OAuth 2.0 Client ID credentials.
+2️⃣ Get Google OAuth Credentials
+Visit Google Cloud Console
 
-Set the JavaScript origin to your frontend URL (e.g., http://localhost:5173).
+Create or select a project
 
-Copy your Google Client ID.
+Configure the OAuth consent screen
 
-2️⃣ Setup .env File
-Create a .env file in your project root.
+Create OAuth 2.0 Client ID credentials
 
-Add your Google Client ID as an environment variable.
+Set Authorized JavaScript origins (e.g., http://localhost:5173)
 
-Restart your dev server after editing .env.
+Copy your Google Client ID
 
-3️⃣ Copy main.tsx File
-Replace your existing main.tsx file with the one configured for GoogleOAuthProvider using your client ID.
+3️⃣ Setup .env File
+Create a .env file in the root of your project
 
-4️⃣ Add SignIn.tsx File
-Create a new file inside src/loginPages/.
+Store your Google Client ID as an environment variable
 
-Paste the SignIn component code that handles the Google login.
+Restart the dev server after setting this
 
-This component will handle rendering the Google Login button and show user info after login.
+Note: Use the VITE_ prefix for environment variables if you're using Vite.
 
-5️⃣ Use the Component in Your App
-Import and use the SignIn component in your App.tsx or App.jsx.
+4️⃣ Replace main.tsx
+Replace your existing main.tsx with the one that wraps your app in GoogleOAuthProvider
 
-🚀 Run Your App
-Install dependencies with npm install.
+This ensures that all children components can access Google Login context
 
-Run the app using npm run dev.
+5️⃣ Add SignIn.tsx Component
+Create a file inside src/loginPages/
 
-Visit http://localhost:5173 to test the Google login.
+Paste the Google login component that:
+
+Renders the login button
+
+Handles success and error callbacks
+
+Decodes the token using jwt-decode
+
+Optionally, sends the token to your backend for authentication
+
+6️⃣ Use the SignIn Component in Your App
+Import the SignIn component
+
+Use it inside your App.tsx or any relevant page or route
+
+7️⃣ Test Your App
+Run npm run dev or yarn dev
+
+Open http://localhost:5173
+
+Use the Google login button to authenticate
+
+🧪 Backend API (Optional)
+If your app communicates with a backend:
+
+Send the credential token to the backend
+
+Backend verifies token using Google’s google-auth-library
+
+Create your own app-specific JWT and return it to frontend
 
 📌 Notes
-Ensure .env is correctly set at the root level.
+Always keep your .env file private
 
-Environment variables must start with VITE_ for Vite projects.
+Client IDs are safe to expose in the frontend, but secrets must stay on the server
 
-Restart the development server after any .env change.
+You can customize the login button appearance and behavior
 
-📷 Demo
-(Insert GIF or image showing login flow)
+🛡 License
+MIT – Use, share, or modify freely
 
-💬 License
-MIT – Free to use and modify.
